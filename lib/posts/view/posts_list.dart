@@ -44,6 +44,7 @@ class _PostsListState extends State<PostsList> {
                   bottom: false,
                   child: CustomScrollView(
                     controller: _scrollController,
+                    physics: BouncingScrollPhysics(),
                     slivers: [
                       SliverList(
                       delegate: SliverChildBuilderDelegate(
@@ -85,13 +86,6 @@ class _PostsListState extends State<PostsList> {
                     : Container(),
               ],
             );
-/*            return SliverList(
-                delegate: SliverChildBuilderDelegate((context, index) {
-                  return index >= state.posts.length
-                      ? const LoadingSpinner()
-                      : PostListItem(post: state.posts[index]);
-                }, childCount: state.posts.length + 1 ,),
-            );*/
           case PostStatus.initial:
             return const Center(
               child: CircularProgressIndicator(),
@@ -165,6 +159,6 @@ class _PostsListState extends State<PostsList> {
     if (!_scrollController.hasClients) return false;
     final minScroll = _scrollController.position.minScrollExtent;
     final currentScroll = _scrollController.offset;
-    return currentScroll <= (minScroll);
+    return currentScroll <= (minScroll - 60);
   }
 }
